@@ -1,0 +1,6 @@
+framework module pfile_picker {
+  umbrella header "pfile_picker-umbrella.h"
+
+  export *
+  module * { export * }
+}

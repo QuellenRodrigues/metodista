@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)"
+options: "2ebaf8e27c9062034f163a3ce64f480c1683ff2cc5282731c3777e71f2dfea00"
+build_start_time: [1659558156, 59332847]
+build_end_time: [1659558156, 225831985]
+inputs:
+  "/Users/quellenrodrigues/Documents/Metodista/metodistaapp/ios/Runner/AppDelegate.swift": !private [1627512580, 0]
