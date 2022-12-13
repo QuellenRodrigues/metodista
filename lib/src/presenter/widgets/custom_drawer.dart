@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:metodistaapp/src/presenter/quiz_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -48,10 +49,10 @@ class CustomDrawer extends StatelessWidget {
                       }
                   ),
                   ListTile(
-                      leading:Icon(Icons.front_hand,color: Colors.white,),
-                      title: Text("Pedido de Oração", style: GoogleFonts.quicksand(color: Colors.white,fontSize: 16)),
+                      leading:Icon(Icons.child_care,color: Colors.white,),
+                      title: Text("Quiz Ministério de Crianças", style: GoogleFonts.quicksand(color: Colors.white,fontSize: 16)),
                       onTap: () => {
-                       // Get.toNamed('/pedidodeoracao')
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> QuizScreen()))
                       }
                   ),
                   ListTile(

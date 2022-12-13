@@ -17,7 +17,6 @@ class LoadedState extends MetodistaState {
   LoadedState(this.itens);
 
   final List<HomeModel> itens;
-
   @override
   List<Object> get props => [itens];
 }

@@ -12,8 +12,25 @@ const appusuarios = require("express")();
 const apptoken = require("express")();
 const appatividadepresenca = require("express")();
 const apporacao = require("express")();
+const apphomescreen = require("express")();
+
 admin.initializeApp();
 
+apphomescreen.get("/", async (request, response) => {
+    await admin.firestore().collection('homescreentop').get()
+        .then(function (docs) {
+          let todos = [];
+          docs.forEach(function (doc) {
+            todos.push({
+              id: doc.id,
+              bilhete_text: doc.data().bilhete_text,
+              boletim_text: doc.data().boletim_text,
+
+            })
+          })
+          response.json(todos);
+        });
+})
 apptestemunho.get("/", async (request, response) => {
     await admin.firestore().collection('testemunho').orderBy('data','desc').get()
         .then(function (docs) {
@@ -31,6 +48,7 @@ apptestemunho.get("/", async (request, response) => {
           response.json(todos);
         });
 })
+
 exports.testemunho = functions.https.onRequest(apptestemunho)
 
 appusuarios.get("/", async (request, response) => {

@@ -12,8 +12,9 @@ class MetodistaCubit extends Cubit<MetodistaState> {
   void getTickets() async {
     try {
       emit(LoadingState());
-      final movies = await repository.getData('bilhetes');
+      final movies = await repository.getData('homescreentop');
       emit(LoadedState(movies));
+
     } catch (e) {
       emit(ErrorState());
     }
