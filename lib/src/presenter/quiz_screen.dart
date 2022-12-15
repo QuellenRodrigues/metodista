@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:metodistaapp/src/presenter/widgets/custom_answer.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({Key? key}) : super(key: key);
@@ -12,26 +11,36 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellow.shade800,
       appBar: AppBar(
-        backgroundColor: Colors.yellow.shade800,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 500,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white
-                ),
-              )
-            ],
+          backgroundColor: Colors.transparent,
+          elevation: 0),
+      extendBodyBehindAppBar: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/quiz-fundo.png',),fit: BoxFit.cover,
           ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 30),
+                child: Image.asset('images/logo-play.png',fit: BoxFit.cover,)),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:30.0),
+                  child: Image.asset('images/geracao-samuel.png'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:30.0),
+                  child: Image.asset('images/criancas.png'),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
