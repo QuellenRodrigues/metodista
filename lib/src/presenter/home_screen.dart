@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:metodistaapp/src/presenter/homescreen/screen_bilhetes.dart';
-import 'package:metodistaapp/src/presenter/homescreen/screen_boletim.dart';
-import 'package:metodistaapp/src/presenter/homescreen/screen_photosboletim.dart';
-import 'package:metodistaapp/src/presenter/homescreen/screen_pixcopy.dart';
+import 'package:metodistaapp/src/presenter/homescreen/bilhetes_screen.dart';
+import 'package:metodistaapp/src/presenter/homescreen/boletim_screen.dart';
+import 'package:metodistaapp/src/presenter/homescreen/photosboletim_screen.dart';
+import 'package:metodistaapp/src/presenter/homescreen/pixcopy_screen.dart';
 import 'package:metodistaapp/src/presenter/metodista_cubit.dart';
 import 'package:metodistaapp/src/presenter/state/metodista_state.dart';
 import 'package:metodistaapp/src/presenter/widgets/custom_drawer.dart';

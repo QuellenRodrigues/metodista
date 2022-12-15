@@ -26,4 +26,14 @@ class MetodistaRepository{
       throw e;
     }
   }
+
+  postData(String api, Object json) async{
+    try{
+      final url = '$baseUrl/$api';
+      final response = await client.post(url,data: json);
+      return response.data;
+    }catch (e) {
+      throw e;
+    }
+  }
 }

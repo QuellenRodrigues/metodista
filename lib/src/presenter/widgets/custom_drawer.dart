@@ -1,6 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:metodistaapp/src/presenter/admin/createquiz_screen.dart';
+import 'package:metodistaapp/src/presenter/metodista_cubit.dart';
 import 'package:metodistaapp/src/presenter/quiz_screen.dart';
+
+import '../../domain/repositories/metodista_repository.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -52,7 +58,11 @@ class CustomDrawer extends StatelessWidget {
                       leading:Icon(Icons.child_care,color: Colors.white,),
                       title: Text("Quiz Ministério de Crianças", style: GoogleFonts.quicksand(color: Colors.white,fontSize: 16)),
                       onTap: () => {
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=> QuizScreen()))
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> BlocProvider<MetodistaCubit>(
+                         create: (context) => MetodistaCubit(
+                           repository: MetodistaRepository(Dio()),),
+                         child: CreateQuizScreen(),
+                       ),))
                       }
                   ),
                   ListTile(

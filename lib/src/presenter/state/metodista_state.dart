@@ -13,6 +13,13 @@ class LoadingState extends MetodistaState {
   List<Object> get props => [];
 }
 
+
+class LoadedPostState extends MetodistaState{
+  LoadedPostState(this.message);
+  final String message;
+  @override
+  List<Object> get props => [message];
+}
 class LoadedState extends MetodistaState {
   LoadedState(this.itens);
 
