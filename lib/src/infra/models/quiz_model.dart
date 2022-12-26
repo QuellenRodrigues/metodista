@@ -1,12 +1,17 @@
-class Quiz {
-  final int id;
-  final String question;
-  final String correctanswer;
-  final List<String> answers;
-  final List<String> whoanswer;
-  final List<String> whonotanswer;
+class QuizModel {
+  final String id;
+  final String pergunta;
+  final List respostas;
+  final String respostacerta;
+  final List quemrespondeu;
 
-  bool selected = false;
 
-  Quiz(this.id, this.question, this.correctanswer, this.answers, this.whoanswer, this.whonotanswer);
+  QuizModel({
+      required this.id,
+      required this.pergunta,
+      required this.respostas,
+      required this.respostacerta,
+      required this.quemrespondeu,
+
+  });
 }

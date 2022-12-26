@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:metodistaapp/src/constants/string.dart';
 import 'package:metodistaapp/src/infra/models/home_model.dart';
+import 'package:metodistaapp/src/infra/models/quiz_model.dart';
 class MetodistaRepository{
   const MetodistaRepository(this.client);
 
@@ -14,9 +15,10 @@ class MetodistaRepository{
       final movies = List<HomeModel>.of(
         response.data.map<HomeModel>(
               (json) => HomeModel(
-                tickets_text: json['bilhete_text'],
-                boletim_text: json['boletim_text'],
-                photos_boletim: json['fotos_boletim']
+                boletim_text: json['pastoral'],
+                photos_boletim: json['fotosboletim'],
+                birthday: json['aniversariantes'],
+                tickets: json['bilhetes']
           ),
         ),
       );
@@ -27,6 +29,52 @@ class MetodistaRepository{
     }
   }
 
+  Future<List<QuizModel>> getQuiz(String api) async {
+
+    try {
+      final url =
+          '$baseUrl/$api';
+      final response = await client.get(url);
+      final quiz = List<QuizModel>.of(
+        response.data.map<QuizModel>(
+              (json) => QuizModel(
+                  pergunta: json['pergunta'],
+                  respostas: json['respostas'],
+                  respostacerta: json['respostacerta'],
+                  quemrespondeu: json['quemrespondeu'],
+                  id: json['id'],
+                  )
+        ),
+      );
+      return quiz;
+
+    } catch (e) {
+      throw e;
+    }
+  }
+  Future<List<QuizModel>>   getQuizFilter(String api, String id) async {
+
+    try {
+      final url =
+          '$baseUrl/$api';
+      final response = await client.get(url,options: Options(headers: {'id': id}));
+      final quiz = List<QuizModel>.of(
+        response.data.map<QuizModel>(
+                (json) => QuizModel(
+              pergunta: json['pergunta'],
+              respostas: json['respostas'],
+              respostacerta: json['respostacerta'],
+              quemrespondeu: json['quemrespondeu'],
+              id: json['id'],
+            )
+        ),
+      );
+      return quiz;
+
+    } catch (e) {
+      throw e;
+    }
+  }
   postData(String api, Object json) async{
     try{
       final url = '$baseUrl/$api';

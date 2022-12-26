@@ -1,14 +1,11 @@
-import 'package:dialog_alert/dialog_alert.dart';
-import 'package:dio/dio.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:metodistaapp/src/constants/colors.dart';
-import 'package:metodistaapp/src/domain/repositories/metodista_repository.dart';
+import 'package:metodistaapp/src/presenter/action/metodista_action.dart';
 import 'package:metodistaapp/src/presenter/metodista_cubit.dart';
-import 'package:metodistaapp/src/presenter/widgets/textformfield_custom.dart';
-
 
 class CreateQuizScreen extends StatefulWidget {
   const CreateQuizScreen({Key? key}) : super(key: key);
@@ -24,6 +21,7 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
   TextEditingController controllerQuestion = TextEditingController();
   TextEditingController controllerAnswers = TextEditingController();
   int selectedIndex = 0;
+  late String answer;
 
 
 
@@ -33,16 +31,25 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: (){
-          answers.clear();
-          controllerAnswers.clear();
-          controllerQuestion.clear();
-          answers.clear();
-          MetodistaCubit(repository: MetodistaRepository(Dio())).postData('quiz', {
+          FirebaseFirestore db = FirebaseFirestore.instance;
+          String id = db.collection('quiz').doc().id;
+          var postcubit = context.read<MetodistaCubit>();postcubit.postData('quiz', {
             "pergunta":controllerQuestion.text,
             "respostas":answers,
-            "respostacerta":
-            ""
+            "respostacerta": answer,
+            "quemrespondeu": [],
+            "id":id
+            
+
           });
+          Future.delayed(const Duration(seconds: 2), () {
+            setState(() {
+              answers.clear();
+              controllerQuestion.clear();
+              controllerAnswers.clear();
+            });  // Prints after 1 second.
+          });
+
         },
         backgroundColor: primarycolor, label: Text('Criar Quiz',style: GoogleFonts.quicksand(fontWeight: FontWeight.w700),),
       ),
@@ -69,7 +76,18 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
             child: Column(
               children: <Widget>[
                 Divider(color: Colors.transparent,),
-                Lottie.asset('imagens/quiz.json',width: 300,height: 300),
+                Container(
+                  height: 300,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      Lottie.asset('imagens/quiz.json',width: 300,height: 300),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: MetodistaAction(),)
+                    ],
+                  ),
+                ),
                 TextFormField(
                   controller: controllerQuestion,
                   maxLines: 2,
@@ -113,16 +131,22 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
                   ),),
 
                     SizedBox(width: 10,),
-                    FloatingActionButton(onPressed: (){
+                    GestureDetector(
+                      onTap: (){
                         if (_formKey.currentState!.validate()) {
                           setState(() {
                             answers.add(controllerAnswers.text);
+                            print(answers);
+                            controllerAnswers.clear();
                           });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Carregando')),
-                          );
                         }
-                      },child: Icon(Icons.add),backgroundColor: primarycolor,)
+                      },
+                      child: CircleAvatar(
+                        radius: 30,
+                        backgroundColor: primarycolor,
+                        child: Icon(Icons.add,color: Colors.white,),
+                      ),
+                    ),
                   ],
                 ),
                 Divider(color: Colors.transparent,height: 5),
@@ -141,6 +165,7 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
                                 setState(() {
                                   answers.removeAt(index);
                                   print(answers.length);
+
                                 });
                               },
                               child: Padding(
@@ -152,6 +177,7 @@ class _CreateQuizScreenState extends State<CreateQuizScreen> {
                                       setState(() {
                                         selectedIndex = index;
                                         print(answers[index]);
+                                        answer = answers[index];
                                       });
                                     },
                                     trailing: Icon(selectedIndex == index ? Icons.check_circle: Icons.quiz,color: selectedIndex == index ? Colors.blue.shade800 : primarycolor,),

@@ -1,11 +1,14 @@
 class HomeModel{
-  final String tickets_text;
   final String boletim_text;
+  final String tickets;
   final List photos_boletim;
+  final List birthday;
+
 
   HomeModel({
-      required this.tickets_text,
-      required this.boletim_text,
-      required this.photos_boletim
+    required this.boletim_text,
+    required this.photos_boletim,
+    required this.birthday,
+    required this.tickets
   });
 }

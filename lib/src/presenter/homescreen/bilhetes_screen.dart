@@ -36,7 +36,7 @@ class ScreenBilhetes extends StatelessWidget {
                       children: <Widget>[
                         Align(
                           child: SizedBox(
-                            child: Text(itens[index].tickets_text),
+                            child: Text(itens[index].tickets),
                             height: 100,width: 200,
                           ),
                           alignment: Alignment.centerRight,

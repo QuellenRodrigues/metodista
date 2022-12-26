@@ -23,43 +23,74 @@ class CustomHomeScreen extends StatelessWidget {
           ),
         ),
 
-        Container(
-          width: double.infinity,
-          margin: const EdgeInsets.only(top: 250),
-          child: Column(
-            children: <Widget>[
-              CircleAvatar(
-                radius: 35,
-                backgroundColor: Colors.grey.shade400,
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  child: CircleAvatar(
-                    backgroundColor: primarycolor,
-                    radius: 25,
-                    child: Image.asset('imagens/metodista.png'),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Metodista Jardim Belvedere',
-                style: TextStyle(
-                    color: Colors.blueGrey.shade800
-                ),
-              ),
-              Text(
-                '15 Anos',
-                style: TextStyle(
-                    color: Colors.grey
-                ),
-              ),
-            ],
-          ),
-        ),
+       Center(
+         child:  Container(
+           width: double.infinity,
+           margin: const EdgeInsets.only(top: 20),
+           child: Column(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: <Widget>[
+               Padding(padding: EdgeInsets.only(left: 300),
+                   child: Column(
+                     // mainAxisAlignment: MainAxisAlignment.center,
+                     // crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       _socialMedia(img: 'whats_logo.png'),
+                       _socialMedia(img: 'face_logo.png'),
+                       _socialMedia(img: 'youtube_logo.png'),
+                       _socialMedia(img: 'insta_logo.png'),
+                     ],
+                   )),
+               SizedBox(
+                 height: 80,
+               ),
+               Text(
+                 'Metodista Jardim Belvedere',
+                 style: TextStyle(
+                     color: Colors.blueGrey.shade800
+                 ),
+               ),
+               Text(
+                 '15 Anos',
+                 style: TextStyle(
+                     color: Colors.grey
+                 ),
+               ),
+             ],
+           ),
+         ),
+       )
       ],
     );
   }
+  Widget _socialMedia({
+  required String img,
+  
+}){
+    return Padding(padding: EdgeInsets.only(top: 5,right: 10),
+    child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          color: Colors.black,
+            boxShadow: [
+              BoxShadow(color: Colors.white, blurRadius: 7.0),
+            ],
+            shape: BoxShape.circle,
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(
+                    'imagens/$img'),
+            )
+        ),
+    ),
+
+    // child:  CircleAvatar(
+    //   backgroundColor: Colors.white,
+    //   radius: 25,
+    //   child: Image.asset('imagens/$img',fit: BoxFit.cover,),
+    // ),
+    );
+}
 }
